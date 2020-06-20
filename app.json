@@ -1,0 +1,17 @@
+{
+  "name": "peloton",
+  "displayName": "peloton",
+  "expo": {
+    "name": "peloton",
+    "slug": "peloton",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
