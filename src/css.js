@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
@@ -44,6 +44,9 @@ export const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
     marginBottom: 10,
+  },
+  todoBody: {
+    maxHeight: Math.round(Dimensions.get('window').height) - 280,
   },
   todoItem: {
     alignItems: 'center',
