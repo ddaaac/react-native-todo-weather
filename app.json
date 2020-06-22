@@ -1,6 +1,4 @@
 {
-  "name": "peloton",
-  "displayName": "peloton",
   "expo": {
     "name": "peloton",
     "slug": "peloton",
@@ -12,6 +10,12 @@
     ],
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#000000"
+    },
+    "icon": "./assets/icon.png"
   }
 }
