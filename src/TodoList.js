@@ -3,13 +3,19 @@ import { View } from 'react-native';
 import { styles } from './css';
 import TodoItem from './TodoItem';
 
-const TodoList = () => {
+const TodoList = ({ todoItems, toggleItemDone }) => {
   return (
     <View style={styles.todoContainer}>
       <View style={styles.todoList}>
-        <TodoItem/>
-        <TodoItem/>
-        <TodoItem/>
+        {todoItems.map(item =>
+          <TodoItem
+            key={item.id}
+            id={item.id}
+            content={item.content}
+            isDone={item.isDone}
+            isEdit={item.isEdit}
+            toggleItemDone={toggleItemDone}
+          />)}
       </View>
     </View>
   )

@@ -11,7 +11,7 @@ const reducer = (state, action) => {
   switch (action.type) {
     case ACTION_TYPE.CHANGE_INPUT:
       return { ...state, input: action.input };
-    case ACTION_TYPE.ADD_TODO:
+    case ACTION_TYPE.CHANGE_TODO_ITEMS:
       return { ...state, todoItems: action.todoItems };
     case ACTION_TYPE.CLEAR_INPUT:
       return { ...state, input: {} };
@@ -29,13 +29,13 @@ const Main = () => {
         isEdit: false,
       },
       {
-        id: Date.now(),
+        id: Date.now() + 1,
         content: '할 일 예시2',
         isDone: true,
         isEdit: false,
       },
       {
-        id: Date.now(),
+        id: Date.now() + 2,
         content: '할 일 예시3',
         isDone: false,
         isEdit: true,
@@ -60,10 +60,25 @@ const Main = () => {
 
   const addTodoItem = (content) => {
     dispatch({
-      type: ACTION_TYPE.ADD_TODO,
+      type: ACTION_TYPE.CHANGE_TODO_ITEMS,
       todoItems: [...state.todoItems, _createTodoItem({ content })],
     });
     dispatch({ type: ACTION_TYPE.CLEAR_INPUT });
+  };
+
+  const toggleItemDone = (id) => {
+    const todoItems = state.todoItems.map(item =>
+      item.id === id ? _createTodoItem({
+        content: item.content,
+        id: item.id,
+        isDone: !item.isDone,
+        isEdit: item.isEdit,
+      }) : item
+    );
+    dispatch({
+      type: ACTION_TYPE.CHANGE_TODO_ITEMS,
+      todoItems: todoItems,
+    });
   };
 
   return (
@@ -74,7 +89,10 @@ const Main = () => {
         onChange={changeTodoInput}
         onPress={addTodoItem}
       />
-      <TodoList/>
+      <TodoList
+        todoItems={state.todoItems}
+        toggleItemDone={toggleItemDone}
+      />
       <TodoFooter/>
     </View>
   )

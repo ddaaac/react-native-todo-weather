@@ -54,6 +54,17 @@ export const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     flexDirection: 'row',
   },
+  todoButton: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  todoContent: {
+    flex: 5,
+  },
+  todoDone: {
+    color: 'rgba(215,215,215,0.5)',
+    textDecorationLine: 'line-through',
+  },
   fullFlex: {
     flex: 1,
   },
