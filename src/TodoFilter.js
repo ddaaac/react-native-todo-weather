@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import { styles } from './css';
 
-const TodoFilter = ({ isSelected, children }) => {
+const TodoFilter = ({ onPress, isSelected, children }) => {
   const filterStyle = isSelected ?
     {
       ...styles.filterItem,
@@ -11,7 +11,7 @@ const TodoFilter = ({ isSelected, children }) => {
     styles.filterItem;
 
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
       <Text style={filterStyle}>
         {children}
       </Text>

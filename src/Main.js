@@ -6,6 +6,7 @@ import TodoFooter from './TodoFooter';
 import { View, TouchableWithoutFeedback } from 'react-native';
 import { styles } from './css';
 import { ACTION_TYPE } from './Action';
+import { TODO_FILTER } from './Filters';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -15,12 +16,15 @@ const reducer = (state, action) => {
       return { ...state, todoItems: action.todoItems };
     case ACTION_TYPE.CLEAR_INPUT:
       return { ...state, input: {} };
+    case ACTION_TYPE.CHANGE_TODO_FILTER:
+      return { ...state, todoFilter: action.todoFilter };
   }
 };
 
 const Main = () => {
   const [state, dispatch] = useReducer(reducer, {
     input: {},
+    todoFilter: TODO_FILTER.SHOW_ALL,
     todoItems: [
       {
         id: Date.now(),
@@ -33,12 +37,6 @@ const Main = () => {
         content: '쉐이빙 폼 사기',
         isDone: true,
         isEdit: false,
-      },
-      {
-        id: Date.now() + 2,
-        content: '할 일 예시3',
-        isDone: false,
-        isEdit: true,
       },
     ],
   });
@@ -118,6 +116,14 @@ const Main = () => {
     });
   };
 
+  const changeTodoFilter = (todoFilter) => {
+    dispatch({ type: ACTION_TYPE.CHANGE_TODO_FILTER, todoFilter });
+  };
+
+  const itemToShow = () => {
+    return state.todoItems.filter(item => state.todoFilter.filter(item));
+  };
+
   return (
     <TouchableWithoutFeedback onPress={cancelAllEdit}>
       <View style={styles.container}>
@@ -128,7 +134,7 @@ const Main = () => {
           onPress={addTodoItem}
         />
         <TodoList
-          todoItems={state.todoItems}
+          todoItems={itemToShow()}
           toggleItemDone={toggleItemDone}
           toggleItemEdit={toggleItemEdit}
           removeItem={removeItem}
@@ -138,6 +144,8 @@ const Main = () => {
         />
         <TodoFooter
           itemsCount={state.todoItems.length}
+          changeTodoFilter={changeTodoFilter}
+          todoFilter={state.todoFilter}
         />
       </View>
     </TouchableWithoutFeedback>

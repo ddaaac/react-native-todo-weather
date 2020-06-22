@@ -4,14 +4,17 @@ import { styles } from './css';
 import TodoCounter from './TodoCounter';
 import TodoFilters from './TodoFilters';
 
-const TodoFooter = ({ itemsCount }) => {
+const TodoFooter = ({ itemsCount, changeTodoFilter, todoFilter }) => {
   return (
     <View style={{
       ...styles.todoFooter,
       ...styles.todoContainer,
     }}>
       <TodoCounter count={itemsCount}/>
-      <TodoFilters/>
+      <TodoFilters
+        changeTodoFilter={changeTodoFilter}
+        todoFilter={todoFilter}
+      />
     </View>
   );
 };
