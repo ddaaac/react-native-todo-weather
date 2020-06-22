@@ -5,7 +5,7 @@ import TodoCounter from './TodoCounter';
 import TodoFilters from './TodoFilters';
 import TodoNextPage from './TodoNextPage';
 
-const TodoFooter = ({ itemsCount, changeTodoFilter, todoFilter, onNext }) => {
+const TodoFooter = ({ itemsCount, changeTodoFilter, todoFilter }) => {
   return (
     <View style={{
       ...styles.todoFooter,
@@ -16,7 +16,7 @@ const TodoFooter = ({ itemsCount, changeTodoFilter, todoFilter, onNext }) => {
         changeTodoFilter={changeTodoFilter}
         todoFilter={todoFilter}
       />
-      <TodoNextPage onNext={onNext}/>
+      <TodoNextPage/>
     </View>
   );
 };

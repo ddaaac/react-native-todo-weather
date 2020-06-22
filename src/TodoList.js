@@ -1,9 +1,10 @@
 import React from 'react';
 import { View, FlatList } from 'react-native';
+
 import { styles } from './css';
 import TodoItem from './TodoItem';
 
-const TodoList = ({ todoItems, toggleItemDone, toggleItemEdit, editItem, removeItem, inputValue, onChange }) => {
+const TodoList = ({ todoItems, toggleItemDone, toggleItemEdit, editItem, removeItem, inputValue, onChange, pushToDetail }) => {
   return (
     <View style={{
       ...styles.todoBody,
@@ -25,6 +26,7 @@ const TodoList = ({ todoItems, toggleItemDone, toggleItemEdit, editItem, removeI
             removeItem={removeItem}
             inputValue={inputValue}
             onChange={onChange}
+            pushToDetail={pushToDetail}
           />}
       >
         {todoItems.map(item =>

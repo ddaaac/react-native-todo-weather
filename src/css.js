@@ -46,7 +46,7 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
   },
   todoBody: {
-    maxHeight: Math.round(Dimensions.get('window').height) - 280,
+    maxHeight: Math.round(Dimensions.get('window').height) - 350,
   },
   todoItem: {
     alignItems: 'center',
@@ -106,5 +106,14 @@ export const styles = StyleSheet.create({
   },
   todoCounter: {
     color: 'grey',
+  },
+  todoDetail: {
+    paddingLeft: 20,
+    paddingRight: 20,
+    borderRadius: 10,
+    backgroundColor: "#FFF",
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

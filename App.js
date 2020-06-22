@@ -1,23 +1,41 @@
 import React from 'react';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import Main from './src/Main';
-import Weather from './src/Weather';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-const Stack = createStackNavigator();
+import Weather from './src/Weather';
+import Main from './src/Main';
+
+const Tab = createBottomTabNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Main" screenOptions={{ header: () => null }}>
-        <Stack.Screen name="Main" initialParams={{version : 1}}>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+            if (route.name === 'Todo') {
+              iconName = 'format-list-bulleted';
+            } else if (route.name === 'Weather') {
+              iconName = 'weather-cloudy';
+            }
+            return <MaterialCommunityIcons name={iconName} size={size} color={color}/>;
+          },
+        })}
+        tabBarOptions={{
+          activeTintColor: 'tomato',
+          inactiveTintColor: 'gray',
+        }}
+      >
+        <Tab.Screen name="Todo" initialParams={{ version: 1 }}>
           {props => <Main {...props}/>}
-        </Stack.Screen>
-        <Stack.Screen name="Weather">
+        </Tab.Screen>
+        <Tab.Screen name="Weather">
           {props => <Weather {...props} index={1}/>}
-        </Stack.Screen>
-      </Stack.Navigator>
+        </Tab.Screen>
+      </Tab.Navigator>
     </NavigationContainer>
   )
 };

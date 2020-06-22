@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { styles } from './css';
 
-const TodoItem = ({ id, content, isEdit, isDone, toggleItemDone, toggleItemEdit, editItem, removeItem, inputValue, onChange }) => {
+const TodoItem = ({ id, content, isEdit, isDone, toggleItemDone, toggleItemEdit, editItem, removeItem, inputValue, onChange, pushToDetail }) => {
   useEffect(() => {
     if (isEdit) {
       onChange(content);
@@ -20,7 +20,11 @@ const TodoItem = ({ id, content, isEdit, isDone, toggleItemDone, toggleItemEdit,
           <MaterialCommunityIcons name="checkbox-blank-circle-outline" size={24} color="grey"/>
         }
       </TouchableOpacity>
-      <TouchableOpacity style={styles.todoContent} onLongPress={() => toggleItemEdit(id)}>
+      <TouchableOpacity
+        style={styles.todoContent}
+        onLongPress={() => toggleItemEdit(id)}
+        onPress={() => pushToDetail(content)}
+      >
         {isEdit ?
           <TextInput value={inputValue} onChangeText={onChange}
                      onSubmitEditing={() => editItem(id, inputValue)}
