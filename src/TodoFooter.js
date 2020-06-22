@@ -4,13 +4,13 @@ import { styles } from './css';
 import TodoCounter from './TodoCounter';
 import TodoFilters from './TodoFilters';
 
-const TodoFooter = () => {
+const TodoFooter = ({ itemsCount }) => {
   return (
     <View style={{
       ...styles.todoFooter,
       ...styles.todoContainer,
     }}>
-      <TodoCounter/>
+      <TodoCounter count={itemsCount}/>
       <TodoFilters/>
     </View>
   );

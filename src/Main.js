@@ -136,7 +136,9 @@ const Main = () => {
           onChange={changeTodoEditInput}
           editItem={editItem}
         />
-        <TodoFooter/>
+        <TodoFooter
+          itemsCount={state.todoItems.length}
+        />
       </View>
     </TouchableWithoutFeedback>
   )
