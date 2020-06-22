@@ -11,7 +11,6 @@ const TodoItem = ({ id, content, isEdit, isDone, toggleItemDone, toggleItemEdit,
   }, [isEdit]);
 
   return (
-
     <View style={styles.todoItem}>
       <TouchableOpacity onPress={() => toggleItemDone(id)} style={styles.todoButton}>
         {isDone ?

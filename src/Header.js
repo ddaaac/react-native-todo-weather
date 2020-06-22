@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { Text } from 'react-native';
 import { styles } from './css';
 
-const TodoHeader = () => {
+const TodoHeader = ({ version }) => {
   return (
-    <Text style={styles.headerTitle}>Todo App</Text>
+    <Text style={styles.headerTitle}>Todo App{version}</Text>
   )
 };
 

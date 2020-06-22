@@ -3,7 +3,7 @@ import TodoHeader from './Header';
 import TodoList from './TodoList';
 import TodoInput from './TodoInput';
 import TodoFooter from './TodoFooter';
-import { View, TouchableWithoutFeedback } from 'react-native';
+import { View, TouchableWithoutFeedback, Text } from 'react-native';
 import { styles } from './css';
 import { ACTION_TYPE } from './Action';
 import { TODO_FILTER } from './Filters';
@@ -21,7 +21,9 @@ const reducer = (state, action) => {
   }
 };
 
-const Main = () => {
+const Main = ({ route, navigation }) => {
+  const { version } = route.params;
+
   const [state, dispatch] = useReducer(reducer, {
     input: {},
     todoFilter: TODO_FILTER.SHOW_ALL,
@@ -124,10 +126,14 @@ const Main = () => {
     return state.todoItems.filter(item => state.todoFilter.filter(item));
   };
 
+  const goToWhetherPage = () => {
+    navigation.push('Main', { version: version + 1 });
+  };
+
   return (
     <TouchableWithoutFeedback onPress={cancelAllEdit}>
       <View style={styles.container}>
-        <TodoHeader/>
+        <TodoHeader version={version}/>
         <TodoInput
           inputValue={state.input.todoInput}
           onChange={changeTodoInput}
@@ -146,6 +152,7 @@ const Main = () => {
           itemsCount={state.todoItems.length}
           changeTodoFilter={changeTodoFilter}
           todoFilter={state.todoFilter}
+          onNext={goToWhetherPage}
         />
       </View>
     </TouchableWithoutFeedback>

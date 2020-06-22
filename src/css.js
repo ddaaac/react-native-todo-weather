@@ -79,6 +79,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "#FFF",
     height: 50,
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   filterContainer: {
     flex: 1,

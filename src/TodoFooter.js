@@ -3,8 +3,9 @@ import { View } from 'react-native';
 import { styles } from './css';
 import TodoCounter from './TodoCounter';
 import TodoFilters from './TodoFilters';
+import TodoNextPage from './TodoNextPage';
 
-const TodoFooter = ({ itemsCount, changeTodoFilter, todoFilter }) => {
+const TodoFooter = ({ itemsCount, changeTodoFilter, todoFilter, onNext }) => {
   return (
     <View style={{
       ...styles.todoFooter,
@@ -15,6 +16,7 @@ const TodoFooter = ({ itemsCount, changeTodoFilter, todoFilter }) => {
         changeTodoFilter={changeTodoFilter}
         todoFilter={todoFilter}
       />
+      <TodoNextPage onNext={onNext}/>
     </View>
   );
 };
