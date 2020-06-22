@@ -3,7 +3,7 @@ import TodoHeader from './Header';
 import TodoList from './TodoList';
 import TodoInput from './TodoInput';
 import TodoFooter from './TodoFooter';
-import { View } from 'react-native';
+import { View, TouchableWithoutFeedback } from 'react-native';
 import { styles } from './css';
 import { ACTION_TYPE } from './Action';
 
@@ -54,6 +54,10 @@ const Main = () => {
     _changeInput('todoInput', value);
   };
 
+  const changeTodoEditInput = (value) => {
+    _changeInput('todoEditInput', value);
+  };
+
   const _createTodoItem = ({ content, id = Date.now(), isDone = false, isEdit = false }) => {
     return { content, id, isDone, isEdit };
   };
@@ -68,12 +72,27 @@ const Main = () => {
 
   const toggleItemDone = (id) => {
     const todoItems = state.todoItems.map(item =>
-      item.id === id ? _createTodoItem({
-        content: item.content,
-        id: item.id,
-        isDone: !item.isDone,
-        isEdit: item.isEdit,
-      }) : item
+      item.id === id ? { ...item, isDone: !item.isDone } : item
+    );
+    dispatch({
+      type: ACTION_TYPE.CHANGE_TODO_ITEMS,
+      todoItems,
+    });
+  };
+
+  const toggleItemEdit = (id) => {
+    const todoItems = state.todoItems.map(item =>
+      item.id === id ? { ...item, isEdit: !item.isEdit } : item
+    );
+    dispatch({
+      type: ACTION_TYPE.CHANGE_TODO_ITEMS,
+      todoItems,
+    });
+  };
+
+  const editItem = (id, content) => {
+    const todoItems = state.todoItems.map(item =>
+      item.id === id ? { ...item, content, isEdit: false } : item
     );
     dispatch({
       type: ACTION_TYPE.CHANGE_TODO_ITEMS,
@@ -86,24 +105,40 @@ const Main = () => {
     dispatch({
       type: ACTION_TYPE.CHANGE_TODO_ITEMS,
       todoItems,
-    })
+    });
+  };
+
+  const cancelAllEdit = () => {
+    const todoItems = state.todoItems.map(item =>
+      item.isEdit ? { ...item, isEdit: false } : item
+    );
+    dispatch({
+      type: ACTION_TYPE.CHANGE_TODO_ITEMS,
+      todoItems,
+    });
   };
 
   return (
-    <View style={styles.container}>
-      <TodoHeader/>
-      <TodoInput
-        inputValue={state.input.todoInput}
-        onChange={changeTodoInput}
-        onPress={addTodoItem}
-      />
-      <TodoList
-        todoItems={state.todoItems}
-        toggleItemDone={toggleItemDone}
-        removeItem={removeItem}
-      />
-      <TodoFooter/>
-    </View>
+    <TouchableWithoutFeedback onPress={cancelAllEdit}>
+      <View style={styles.container}>
+        <TodoHeader/>
+        <TodoInput
+          inputValue={state.input.todoInput}
+          onChange={changeTodoInput}
+          onPress={addTodoItem}
+        />
+        <TodoList
+          todoItems={state.todoItems}
+          toggleItemDone={toggleItemDone}
+          toggleItemEdit={toggleItemEdit}
+          removeItem={removeItem}
+          inputValue={state.input.todoEditInput}
+          onChange={changeTodoEditInput}
+          editItem={editItem}
+        />
+        <TodoFooter/>
+      </View>
+    </TouchableWithoutFeedback>
   )
 };
 

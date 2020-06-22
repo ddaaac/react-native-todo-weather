@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { styles } from './css';
 import TodoItem from './TodoItem';
 
-const TodoList = ({ todoItems, toggleItemDone, removeItem }) => {
+const TodoList = ({ todoItems, toggleItemDone, toggleItemEdit, editItem, removeItem, inputValue, onChange }) => {
   return (
     <View style={styles.todoContainer}>
       <View style={styles.todoList}>
@@ -15,7 +15,11 @@ const TodoList = ({ todoItems, toggleItemDone, removeItem }) => {
             isDone={item.isDone}
             isEdit={item.isEdit}
             toggleItemDone={toggleItemDone}
+            toggleItemEdit={toggleItemEdit}
+            editItem={editItem}
             removeItem={removeItem}
+            inputValue={inputValue}
+            onChange={onChange}
           />)}
       </View>
     </View>
