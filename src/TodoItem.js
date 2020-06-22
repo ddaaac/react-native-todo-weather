@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { styles } from './css';
 
-const TodoItem = ({ id, content, isEdit, isDone, toggleItemDone }) => {
+const TodoItem = ({ id, content, isEdit, isDone, toggleItemDone, removeItem }) => {
   const textStyle = isDone ?
     {
       ...styles.todoContent,
@@ -23,7 +23,7 @@ const TodoItem = ({ id, content, isEdit, isDone, toggleItemDone }) => {
       <Text style={textStyle}>
         {content}
       </Text>
-      <TouchableOpacity onPress={() => console.log("touched!")} style={styles.todoButton}>
+      <TouchableOpacity onPress={() => removeItem(id)} style={styles.todoButton}>
         <MaterialIcons name="delete" size={24} color={isDone ? 'rgba(215,215,215,0.7)' : 'grey'}/>
       </TouchableOpacity>
     </View>

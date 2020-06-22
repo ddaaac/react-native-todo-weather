@@ -24,13 +24,13 @@ const Main = () => {
     todoItems: [
       {
         id: Date.now(),
-        content: '할 일 예시',
+        content: '클랜징 폼 사기',
         isDone: false,
         isEdit: false,
       },
       {
         id: Date.now() + 1,
-        content: '할 일 예시2',
+        content: '쉐이빙 폼 사기',
         isDone: true,
         isEdit: false,
       },
@@ -77,8 +77,16 @@ const Main = () => {
     );
     dispatch({
       type: ACTION_TYPE.CHANGE_TODO_ITEMS,
-      todoItems: todoItems,
+      todoItems,
     });
+  };
+
+  const removeItem = (id) => {
+    const todoItems = state.todoItems.filter(item => item.id !== id);
+    dispatch({
+      type: ACTION_TYPE.CHANGE_TODO_ITEMS,
+      todoItems,
+    })
   };
 
   return (
@@ -92,6 +100,7 @@ const Main = () => {
       <TodoList
         todoItems={state.todoItems}
         toggleItemDone={toggleItemDone}
+        removeItem={removeItem}
       />
       <TodoFooter/>
     </View>
