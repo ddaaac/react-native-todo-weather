@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { ActivityIndicator, View, Text, Image } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import useAxios from 'axios-hooks';
 import { requestPermissionsAsync, getCurrentPositionAsync } from 'expo-location';
 

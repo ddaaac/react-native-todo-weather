@@ -1,5 +1,5 @@
-import React, { useReducer } from 'react';
-import { TouchableWithoutFeedback, View } from 'react-native';
+import React, { useReducer, useEffect } from 'react';
+import { TouchableWithoutFeedback, View, AsyncStorage, Keyboard } from 'react-native';
 
 import TodoHeader from './Header';
 import TodoList from './TodoList';
@@ -41,6 +41,38 @@ const Todo = ({ navigation }) => {
       },
     ],
   });
+
+  const saveTodo = async () => {
+    await AsyncStorage.setItem('@TodoWeather/Todos', JSON.stringify(state.todoItems));
+  };
+
+  const loadTodo = async () => {
+    const todoItems = await AsyncStorage.getItem('@TodoWeather/Todos');
+    if (!todoItems) {
+      return [
+        {
+          id: Date.now(),
+          content: '클랜징 폼 사기',
+          isDone: false,
+          isEdit: false,
+        },
+        {
+          id: Date.now() + 1,
+          content: '쉐이빙 폼 사기',
+          isDone: true,
+          isEdit: false,
+        },
+      ];
+    }
+    return JSON.parse(todoItems);
+  };
+
+  useEffect(() => {
+    (async () => {
+      const todoItems = await loadTodo();
+      dispatch({ type: ACTION_TYPE.CHANGE_TODO_ITEMS, todoItems });
+    })();
+  }, []);
 
   const _changeInput = (key, value) => {
     dispatch({
@@ -108,6 +140,7 @@ const Todo = ({ navigation }) => {
   };
 
   const cancelAllEdit = () => {
+    Keyboard.dismiss();
     const todoItems = state.todoItems.map(item =>
       item.isEdit ? { ...item, isEdit: false } : item
     );
@@ -137,6 +170,7 @@ const Todo = ({ navigation }) => {
           inputValue={state.input.todoInput}
           onChange={changeTodoInput}
           onPress={addTodoItem}
+          onSave={saveTodo}
         />
         <TodoList
           todoItems={itemToShow()}
