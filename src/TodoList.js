@@ -1,14 +1,15 @@
 import React, { useRef, useEffect } from 'react';
 import { View, FlatList } from 'react-native';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 
 import { styles } from './css';
 import TodoItem from './TodoItem';
-import { filteredTodoItemsState } from './GlobalState';
+import { filteredTodoItemsState, todoItemAddedState } from './GlobalState';
 
 const TodoList = ({ pushToDetail }) => {
   const flatRef = useRef(null);
   const todoItems = useRecoilValue(filteredTodoItemsState);
+  const [isTodoItemAdded, setIsTodoItemAdded] = useRecoilState(todoItemAddedState);
 
   useEffect(() => {
     if (flatRef.current) {
@@ -26,6 +27,13 @@ const TodoList = ({ pushToDetail }) => {
         style={styles.todoList}
         data={todoItems}
         keyExtractor={item => item.id.toString()}
+        onContentSizeChange={() => {
+          if (!isTodoItemAdded) {
+            return;
+          }
+          flatRef.current.scrollToEnd();
+          setIsTodoItemAdded(false);
+        }}
         renderItem={({ item }) =>
           <TodoItem
             item={item}

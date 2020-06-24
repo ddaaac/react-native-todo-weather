@@ -12,6 +12,11 @@ export const todoFilterState = atom({
   default: TODO_FILTER.SHOW_ALL,
 });
 
+export const todoItemAddedState = atom({
+  key: 'todoItemAddedState',
+  default: false,
+});
+
 export const todoItemOnEditState = selector({
   key: 'todoItemOnEditState',
   get: ({ get }) => {

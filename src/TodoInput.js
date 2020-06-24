@@ -5,12 +5,13 @@ import ActionSheet from 'react-native-actionsheet';
 import { useSetRecoilState } from 'recoil';
 
 import { styles } from './css';
-import { todoItemsState } from './GlobalState';
+import { todoItemsState, todoItemAddedState } from './GlobalState';
 
 const TodoInput = ({ onSave }) => {
   const [actionSheet, setActionSheet] = useState(null);
   const [input, setInput] = useState('');
   const setTodoItems = useSetRecoilState(todoItemsState);
+  const setIsTodoItemAdded = useSetRecoilState(todoItemAddedState);
 
   const _createTodoItem = ({ content, id = Date.now(), isDone = false, isEdit = false }) => {
     return { content, id, isDone, isEdit };
@@ -18,6 +19,7 @@ const TodoInput = ({ onSave }) => {
 
   const addTodoItem = () => {
     setTodoItems(todoItems => [...todoItems, _createTodoItem({ content: input })]);
+    setIsTodoItemAdded(true);
     setInput('');
   };
 
