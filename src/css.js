@@ -116,4 +116,24 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  center: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  columnEnd: {
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    flex: 1,
+  },
+  weatherIcon: {
+    width: 200,
+    height: 200,
+    resizeMode: 'stretch',
+  },
+  weatherText: {
+    flex: 1,
+    fontSize: 30,
+    textAlign: 'center',
+  },
 });
