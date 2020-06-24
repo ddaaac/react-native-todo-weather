@@ -17,6 +17,7 @@
     "expo": "~37.0.3",
     "expo-font": "~8.1.0",
     "expo-image-picker": "~8.1.0",
+    "expo-intent-launcher": "~8.1.0",
     "expo-location": "~8.1.0",
     "expo-sharing": "~8.1.0",
     "expo-splash-screen": "^0.2.3",
