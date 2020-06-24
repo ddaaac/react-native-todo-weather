@@ -12,6 +12,14 @@ export const todoFilterState = atom({
   default: TODO_FILTER.SHOW_ALL,
 });
 
+export const todoItemOnEditState = selector({
+  key: 'todoItemOnEditState',
+  get: ({ get }) => {
+    const todoItems = get(todoItemsState);
+    return todoItems.filter(item => item.isEdit).length > 0;
+  },
+});
+
 export const filteredTodoItemsState = selector({
   key: 'filteredTodoItems',
   get: ({ get }) => {

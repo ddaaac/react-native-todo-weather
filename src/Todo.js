@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { TouchableWithoutFeedback, View, AsyncStorage, Keyboard } from 'react-native';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import Header from './Header';
 import TodoList from './TodoList';
@@ -8,10 +8,11 @@ import TodoInput from './TodoInput';
 import TodoFooter from './TodoFooter';
 import { styles } from './css';
 import { DEFAULT_TODO_ITEMS } from './DefaultTodoItems';
-import { todoItemsState } from './GlobalState';
+import { todoItemsState, todoItemOnEditState } from './GlobalState';
 
 const Todo = ({ navigation }) => {
   const [todoItems, setTodoItems] = useRecoilState(todoItemsState);
+  const isTodoItemEdit = useRecoilValue(todoItemOnEditState);
 
   const saveTodo = async () => {
     await AsyncStorage.setItem('@TodoWeather/Todos', JSON.stringify(todoItems));
@@ -34,6 +35,9 @@ const Todo = ({ navigation }) => {
 
   const cancelAllEdit = () => {
     Keyboard.dismiss();
+    if (!isTodoItemEdit) {
+      return;
+    }
     const newTodoItems = todoItems.map(item =>
       item.isEdit ? { ...item, isEdit: false } : item
     );
