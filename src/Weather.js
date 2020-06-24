@@ -4,7 +4,7 @@ import { requestPermissionsAsync, getCurrentPositionAsync, PermissionStatus } fr
 import { startActivityAsync, ACTION_LOCATION_SOURCE_SETTINGS } from 'expo-intent-launcher';
 
 import { styles } from './css';
-import TodoHeader from './Header';
+import Header from './Header';
 import WeatherInfo from './WeatherInfo';
 
 const Weather = ({ index }) => {
@@ -42,7 +42,7 @@ const Weather = ({ index }) => {
 
   return (
     <View style={styles.container}>
-      <TodoHeader title="Weather"/>
+      <Header title="Weather"/>
       <View style={styles.center}>
         {location ?
           <WeatherInfo longitude={location.coords.longitude} latitude={location.coords.latitude}/>

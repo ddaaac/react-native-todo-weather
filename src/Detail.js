@@ -2,13 +2,13 @@ import React from 'react';
 import { View, Text } from 'react-native';
 
 import { styles } from './css';
-import TodoHeader from './Header';
+import Header from './Header';
 
 const Detail = ({ route }) => {
   const { content } = route.params;
   return (
     <View style={styles.container}>
-      <TodoHeader title="Detail"/>
+      <Header title="Detail"/>
       <View style={{
         ...styles.todoContainer,
         ...styles.todoDetail,

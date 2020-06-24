@@ -2,35 +2,48 @@ import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import ActionSheet from 'react-native-actionsheet';
+import { useSetRecoilState } from 'recoil';
 
 import { styles } from './css';
+import { todoItemsState } from './GlobalState';
 
-const TodoInput = ({ inputValue, onChange, onPress, onSave }) => {
+const TodoInput = ({ onSave }) => {
   const [actionSheet, setActionSheet] = useState(null);
+  const [input, setInput] = useState('');
+  const setTodoItems = useSetRecoilState(todoItemsState);
+
+  const _createTodoItem = ({ content, id = Date.now(), isDone = false, isEdit = false }) => {
+    return { content, id, isDone, isEdit };
+  };
+
+  const addTodoItem = () => {
+    setTodoItems(todoItems => [...todoItems, _createTodoItem({ content: input })]);
+    setInput('');
+  };
 
   return (
     <View style={styles.todoContainer}>
       <View style={styles.todoInput}>
         <TextInput
-          value={inputValue ? inputValue : ''}
-          onChangeText={onChange}
+          value={input}
+          onChangeText={setInput}
           placeholder='Write your todo.'
           style={styles.fullFlex}
         />
-        <TouchableOpacity onPress={() => onPress(inputValue)}
+        <TouchableOpacity onPress={addTodoItem}
                           onLongPress={() => actionSheet.show()}>
           <AntDesign name='pluscircle' size={18} color='#24a0ed'/>
         </TouchableOpacity>
       </View>
       <ActionSheet
-        ref={o => setActionSheet(o)}
+        ref={ref => setActionSheet(ref)}
         title={'Which one do you like ?'}
         options={['Add Todo', 'Save All', 'cancel']}
         cancelButtonIndex={2}
         // destructiveButtonIndex={1}
         onPress={(index) => {
           if (index === 0) {
-            onPress(inputValue);
+            addTodoItem();
           } else if (index === 1) {
             onSave();
           }

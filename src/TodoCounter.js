@@ -1,12 +1,16 @@
 import React from 'react';
 import { Text } from 'react-native';
+import { useRecoilValue } from 'recoil';
 
 import { styles } from './css';
+import { filteredTodoItemsCountState } from './GlobalState';
 
-const TodoCounter = ({ count }) => {
+const TodoCounter = () => {
+  const todoItemsCount = useRecoilValue(filteredTodoItemsCountState);
+
   return (
     <Text style={styles.todoCounter}>
-      총 {count}개
+      총 {todoItemsCount}개
     </Text>
   )
 };

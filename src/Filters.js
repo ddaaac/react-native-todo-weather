@@ -1,11 +1,11 @@
 export const TODO_FILTER = {
   SHOW_ALL: {
-    filter: () => true,
+    apply: () => true,
   },
   SHOW_DONE: {
-    filter: (item) => item.isDone,
+    apply: (item) => item.isDone,
   },
   SHOW_TODO: {
-    filter: (item) => !item.isDone,
+    apply: (item) => !item.isDone,
   },
 };

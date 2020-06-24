@@ -1,48 +1,37 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { View, FlatList } from 'react-native';
+import { useRecoilValue } from 'recoil';
 
 import { styles } from './css';
 import TodoItem from './TodoItem';
+import { filteredTodoItemsState } from './GlobalState';
 
-const TodoList = ({ todoItems, toggleItemDone, toggleItemEdit, editItem, removeItem, inputValue, onChange, pushToDetail }) => {
+const TodoList = ({ pushToDetail }) => {
+  const flatRef = useRef(null);
+  const todoItems = useRecoilValue(filteredTodoItemsState);
+
+  useEffect(() => {
+    if (flatRef.current) {
+      console.log(flatRef.current.scrollToEnd);
+    }
+  }, [flatRef]);
+
   return (
     <View style={{
       ...styles.todoBody,
       ...styles.todoContainer
     }}>
       <FlatList
+        ref={flatRef}
         style={styles.todoList}
         data={todoItems}
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) =>
           <TodoItem
-            id={item.id}
-            content={item.content}
-            isDone={item.isDone}
-            isEdit={item.isEdit}
-            toggleItemDone={toggleItemDone}
-            toggleItemEdit={toggleItemEdit}
-            editItem={editItem}
-            removeItem={removeItem}
-            inputValue={inputValue}
-            onChange={onChange}
+            item={item}
             pushToDetail={pushToDetail}
           />}
       >
-        {todoItems.map(item =>
-          <TodoItem
-            key={item.id}
-            id={item.id}
-            content={item.content}
-            isDone={item.isDone}
-            isEdit={item.isEdit}
-            toggleItemDone={toggleItemDone}
-            toggleItemEdit={toggleItemEdit}
-            editItem={editItem}
-            removeItem={removeItem}
-            inputValue={inputValue}
-            onChange={onChange}
-          />)}
       </FlatList>
     </View>
   )
