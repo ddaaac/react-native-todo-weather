@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
+
 import { styles } from './css';
 
 const TodoItem = ({ id, content, isEdit, isDone, toggleItemDone, toggleItemEdit, editItem, removeItem, inputValue, onChange, pushToDetail }) => {

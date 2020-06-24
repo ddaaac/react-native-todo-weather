@@ -1,6 +1,6 @@
 import React from 'react';
-import useAxios from 'axios-hooks';
 import { ActivityIndicator, Image, Text, View } from 'react-native';
+import useAxios from 'axios-hooks';
 
 import { styles } from './css';
 

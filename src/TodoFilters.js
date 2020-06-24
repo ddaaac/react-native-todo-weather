@@ -1,6 +1,7 @@
 import React from 'react';
-import { styles } from './css';
 import { View } from 'react-native';
+
+import { styles } from './css';
 import TodoFilter from './TodoFilter';
 import { TODO_FILTER } from './Filters';
 

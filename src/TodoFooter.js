@@ -1,5 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
+
 import { styles } from './css';
 import TodoCounter from './TodoCounter';
 import TodoFilters from './TodoFilters';
