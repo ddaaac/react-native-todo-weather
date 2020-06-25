@@ -1,6 +1,6 @@
-import { atom, selector } from 'recoil';
+import {atom, selector} from 'recoil';
 
-import { TODO_FILTER } from './Filters';
+import TODO_FILTER from './Filters';
 
 export const todoItemsState = atom({
   key: 'todoItemsState',
@@ -19,26 +19,29 @@ export const todoItemAddedState = atom({
 
 export const todoItemOnEditState = selector({
   key: 'todoItemOnEditState',
-  get: ({ get }) => {
+  get: ({get}) => {
     const todoItems = get(todoItemsState);
+
     return todoItems.filter(item => item.isEdit).length > 0;
   },
 });
 
 export const filteredTodoItemsState = selector({
   key: 'filteredTodoItems',
-  get: ({ get }) => {
+  get: ({get}) => {
     const todoFilter = get(todoFilterState);
     const todoItems = get(todoItemsState);
+
     return todoItems.filter(item => todoFilter.apply(item));
   },
 });
 
 export const filteredTodoItemsCountState = selector({
   key: 'filteredTodoItemsCount',
-  get: ({ get }) => {
+  get: ({get}) => {
     const todoFilter = get(todoFilterState);
     const todoItems = get(todoItemsState);
+
     return todoItems.filter(item => todoFilter.apply(item)).length;
   },
 });

@@ -1,6 +1,6 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     paddingTop: 80,
     flex: 1,
@@ -18,14 +18,14 @@ export const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     borderRadius: 10,
-    backgroundColor: "#FFF",
+    backgroundColor: '#FFF',
     height: 50,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   todoInputEdit: {
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 9,
@@ -38,7 +38,7 @@ export const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     borderRadius: 10,
-    backgroundColor: "#FFF",
+    backgroundColor: '#FFF',
   },
   todoContainer: {
     marginLeft: 20,
@@ -76,7 +76,7 @@ export const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     borderRadius: 10,
-    backgroundColor: "#FFF",
+    backgroundColor: '#FFF',
     height: 50,
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -111,7 +111,7 @@ export const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     borderRadius: 10,
-    backgroundColor: "#FFF",
+    backgroundColor: '#FFF',
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
@@ -137,3 +137,5 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+export default styles;

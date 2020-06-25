@@ -1,18 +1,16 @@
 import React from 'react';
-import { View } from 'react-native';
+import {View} from 'react-native';
 
-import { styles } from './css';
+import styles from './css';
+import TODO_FILTER from './Filters';
 import TodoFilter from './TodoFilter';
-import { TODO_FILTER } from './Filters';
 
-const TodoFilters = () => {
-  return (
-    <View style={styles.filterContainer}>
-      <TodoFilter filter={TODO_FILTER.SHOW_ALL}>전체보기</TodoFilter>
-      <TodoFilter filter={TODO_FILTER.SHOW_TODO}>해야할 일</TodoFilter>
-      <TodoFilter filter={TODO_FILTER.SHOW_DONE}>완료한 일</TodoFilter>
-    </View>
-  )
-};
+const TodoFilters = () => (
+  <View style={styles.filterContainer}>
+    <TodoFilter filter={TODO_FILTER.SHOW_ALL}/>
+    <TodoFilter filter={TODO_FILTER.SHOW_TODO}/>
+    <TodoFilter filter={TODO_FILTER.SHOW_DONE}/>
+  </View>
+);
 
 export default TodoFilters;

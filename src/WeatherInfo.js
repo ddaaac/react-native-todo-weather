@@ -1,13 +1,14 @@
 import React from 'react';
-import { ActivityIndicator, Image, Text, View } from 'react-native';
+import {ActivityIndicator, Image, Text, View} from 'react-native';
 import useAxios from 'axios-hooks';
+import PropTypes from 'prop-types';
 
-import { styles } from './css';
+import styles from './css';
 
 const appId = 'API_KEY';
 
-const WeatherInfo = ({ latitude, longitude }) => {
-  const [{ data: weatherData, loading: isWeatherApiLoading, error: weatherApiError }, getWeather] = useAxios(
+const WeatherInfo = ({latitude, longitude}) => {
+  const [{data: weatherData, loading: isWeatherApiLoading, error: weatherApiError}] = useAxios(
     `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${appId}`,
   );
 
@@ -33,7 +34,7 @@ const WeatherInfo = ({ latitude, longitude }) => {
       <View style={styles.columnEnd}>
         <Image
           style={styles.weatherIcon}
-          source={{ uri: `http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png` }}
+          source={{uri: `http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`}}
         />
       </View>
       <Text style={styles.weatherText}>
@@ -41,6 +42,11 @@ const WeatherInfo = ({ latitude, longitude }) => {
       </Text>
     </View>
   );
+};
+
+WeatherInfo.propTypes = {
+  latitude: PropTypes.number,
+  longitude: PropTypes.number,
 };
 
 export default WeatherInfo;

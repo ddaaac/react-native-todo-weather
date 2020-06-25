@@ -1,11 +1,12 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
-import { useRecoilState } from 'recoil';
+import {Text, TouchableOpacity} from 'react-native';
+import {useRecoilState} from 'recoil';
+import PropTypes from 'prop-types';
 
-import { styles } from './css';
-import { todoFilterState } from './GlobalState';
+import styles from './css';
+import {todoFilterState} from './GlobalState';
 
-const TodoFilter = ({ filter, children }) => {
+const TodoFilter = ({filter}) => {
   const [todoFilter, setTodoFilter] = useRecoilState(todoFilterState);
 
   const filterStyle = (filter === todoFilter) ?
@@ -18,10 +19,17 @@ const TodoFilter = ({ filter, children }) => {
   return (
     <TouchableOpacity onPress={() => setTodoFilter(filter)}>
       <Text style={filterStyle}>
-        {children}
+        {filter.name}
       </Text>
     </TouchableOpacity>
   );
+};
+
+TodoFilter.propTypes = {
+  filter: PropTypes.shape({
+    apply: PropTypes.func,
+    name: PropTypes.string,
+  }),
 };
 
 export default TodoFilter;

@@ -1,40 +1,37 @@
-import React, { useRef, useEffect } from 'react';
-import { View, FlatList } from 'react-native';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import React, {useRef} from 'react';
+import {View, FlatList} from 'react-native';
+import {useRecoilValue, useRecoilState} from 'recoil';
+import PropTypes from 'prop-types';
 
-import { styles } from './css';
+import styles from './css';
+import {filteredTodoItemsState, todoItemAddedState} from './GlobalState';
 import TodoItem from './TodoItem';
-import { filteredTodoItemsState, todoItemAddedState } from './GlobalState';
 
-const TodoList = ({ pushToDetail }) => {
+const TodoList = ({pushToDetail}) => {
   const flatRef = useRef(null);
   const todoItems = useRecoilValue(filteredTodoItemsState);
   const [isTodoItemAdded, setIsTodoItemAdded] = useRecoilState(todoItemAddedState);
 
-  useEffect(() => {
-    if (flatRef.current) {
-      console.log(flatRef.current.scrollToEnd);
+  const scrollToEndIfItemAdded = () => {
+    if (!isTodoItemAdded) {
+      return;
     }
-  }, [flatRef]);
+    flatRef.current.scrollToEnd();
+    setIsTodoItemAdded(false);
+  };
 
   return (
     <View style={{
       ...styles.todoBody,
-      ...styles.todoContainer
+      ...styles.todoContainer,
     }}>
       <FlatList
         ref={flatRef}
         style={styles.todoList}
         data={todoItems}
         keyExtractor={item => item.id.toString()}
-        onContentSizeChange={() => {
-          if (!isTodoItemAdded) {
-            return;
-          }
-          flatRef.current.scrollToEnd();
-          setIsTodoItemAdded(false);
-        }}
-        renderItem={({ item }) =>
+        onContentSizeChange={scrollToEndIfItemAdded}
+        renderItem={({item}) =>
           <TodoItem
             item={item}
             pushToDetail={pushToDetail}
@@ -42,7 +39,11 @@ const TodoList = ({ pushToDetail }) => {
       >
       </FlatList>
     </View>
-  )
+  );
+};
+
+TodoList.propTypes = {
+  pushToDetail: PropTypes.func,
 };
 
 export default TodoList;

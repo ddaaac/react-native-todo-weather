@@ -1,24 +1,25 @@
-import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+import React, {useState} from 'react';
+import {View, TextInput, TouchableOpacity} from 'react-native';
+import {AntDesign} from '@expo/vector-icons';
 import ActionSheet from 'react-native-actionsheet';
-import { useSetRecoilState } from 'recoil';
+import {useSetRecoilState} from 'recoil';
+import PropTypes from 'prop-types';
 
-import { styles } from './css';
-import { todoItemsState, todoItemAddedState } from './GlobalState';
+import styles from './css';
+import {todoItemsState, todoItemAddedState} from './GlobalState';
 
-const TodoInput = ({ onSave }) => {
+const TodoInput = ({onSave}) => {
   const [actionSheet, setActionSheet] = useState(null);
   const [input, setInput] = useState('');
   const setTodoItems = useSetRecoilState(todoItemsState);
   const setIsTodoItemAdded = useSetRecoilState(todoItemAddedState);
 
-  const _createTodoItem = ({ content, id = Date.now(), isDone = false, isEdit = false }) => {
-    return { content, id, isDone, isEdit };
+  const _createTodoItem = ({content, id = Date.now(), isDone = false, isEdit = false}) => {
+    return {content, id, isDone, isEdit};
   };
 
   const addTodoItem = () => {
-    setTodoItems(todoItems => [...todoItems, _createTodoItem({ content: input })]);
+    setTodoItems(todoItems => [...todoItems, _createTodoItem({content: input})]);
     setIsTodoItemAdded(true);
     setInput('');
   };
@@ -32,8 +33,10 @@ const TodoInput = ({ onSave }) => {
           placeholder='Write your todo.'
           style={styles.fullFlex}
         />
-        <TouchableOpacity onPress={addTodoItem}
-                          onLongPress={() => actionSheet.show()}>
+        <TouchableOpacity
+          onPress={addTodoItem}
+          onLongPress={() => actionSheet.show()}
+        >
           <AntDesign name='pluscircle' size={18} color='#24a0ed'/>
         </TouchableOpacity>
       </View>
@@ -43,7 +46,7 @@ const TodoInput = ({ onSave }) => {
         options={['Add Todo', 'Save All', 'cancel']}
         cancelButtonIndex={2}
         // destructiveButtonIndex={1}
-        onPress={(index) => {
+        onPress={index => {
           if (index === 0) {
             addTodoItem();
           } else if (index === 1) {
@@ -52,7 +55,11 @@ const TodoInput = ({ onSave }) => {
         }}
       />
     </View>
-  )
+  );
+};
+
+TodoInput.propTypes = {
+  onSave: PropTypes.func,
 };
 
 export default TodoInput;

@@ -1,9 +1,9 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { RecoilRoot } from 'recoil';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {MaterialCommunityIcons} from '@expo/vector-icons';
+import {RecoilRoot} from 'recoil';
 
 import Weather from './src/Weather';
 import Main from './src/Main';
@@ -15,9 +15,11 @@ const App = () => {
     <RecoilRoot>
       <NavigationContainer>
         <Tab.Navigator
-          screenOptions={({ route }) => ({
-            tabBarIcon: ({ focused, color, size }) => {
+          screenOptions={({route}) => ({
+            // eslint-disable-next-line react/prop-types,react/display-name
+            tabBarIcon: ({focused, color, size}) => {
               let iconName;
+
               if (route.name === 'Todo') {
                 iconName = 'format-list-bulleted';
               } else if (route.name === 'Weather') {
@@ -31,16 +33,16 @@ const App = () => {
             inactiveTintColor: 'gray',
           }}
         >
-          <Tab.Screen name="Todo" initialParams={{ version: 1 }}>
+          <Tab.Screen name="Todo" initialParams={{version: 1}}>
             {props => <Main {...props}/>}
           </Tab.Screen>
           <Tab.Screen name="Weather">
-            {props => <Weather {...props} index={1}/>}
+            {props => <Weather {...props}/>}
           </Tab.Screen>
         </Tab.Navigator>
       </NavigationContainer>
     </RecoilRoot>
-  )
+  );
 };
 
 export default App;
