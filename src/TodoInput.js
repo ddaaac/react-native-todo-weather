@@ -14,12 +14,10 @@ const TodoInput = ({onSave}) => {
   const setTodoItems = useSetRecoilState(todoItemsState);
   const setIsTodoItemAdded = useSetRecoilState(todoItemAddedState);
 
-  const _createTodoItem = ({content, id = Date.now(), isDone = false, isEdit = false}) => {
-    return {content, id, isDone, isEdit};
-  };
+  const _createTodoItem = content => ({content, id: Date.now(), isDone: false, isEdit: false});
 
   const addTodoItem = () => {
-    setTodoItems(todoItems => [...todoItems, _createTodoItem({content: input})]);
+    setTodoItems(todoItems => [...todoItems, _createTodoItem(input)]);
     setIsTodoItemAdded(true);
     setInput('');
   };
@@ -43,14 +41,16 @@ const TodoInput = ({onSave}) => {
       <ActionSheet
         ref={ref => setActionSheet(ref)}
         title={'Which one do you like ?'}
-        options={['Add Todo', 'Save All', 'cancel']}
-        cancelButtonIndex={2}
-        // destructiveButtonIndex={1}
+        options={['Todo 목록에 추가', 'Todo 리스트 저장', '모두 제거', 'cancel']}
+        cancelButtonIndex={3}
+        destructiveButtonIndex={2}
         onPress={index => {
           if (index === 0) {
             addTodoItem();
           } else if (index === 1) {
             onSave();
+          } else if (index === 2) {
+            setTodoItems([]);
           }
         }}
       />
